@@ -1,15 +1,23 @@
+require 'json'
+
 module Decider
-  def decide(history)
-    'C' if history.blank?
+  def self.decide(history)
+    tit_for_tat(history)
+  end
+
+  # FIXME: This is not tit_for_tat!
+  def self.tit_for_tat(history)
+    return 'C' if history.empty?
+
     case history.last
-    when ['C', 'C']
-      'C'
-    when ['C', 'D']
-      'D'
-    when ['D', 'D']
-      'C'
-    when ['D', 'C']
-      'C'
+    when 'CC'
+      return 'C'
+    when 'CD'
+      return 'D'
+    when 'DD'
+      return 'C'
+    when 'DC'
+      return 'C'
     end
   end
 end
